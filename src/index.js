@@ -17,7 +17,7 @@ const resolvers = {
             return 'This is my first query!'
         },
         name() {
-            return 'Andrew Mead'
+            return 'Rick Grimes'
         },
         bio() {
             const Bio = 'I live in Atlanta'
