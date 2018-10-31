@@ -1,13 +1,40 @@
-import myCurrentLocation,  { getGreeting, message, name } from './myModule'
-import addToNumbers, { substract } from './math'
+import { GraphQLServer } from 'graphql-yoga'
 
-//myModule.js
-console.log(message)
-console.log(name)
-console.log(myCurrentLocation)
-console.log(getGreeting('Jessica'))
+// Type definitions (schema)
+const typeDefs = `
+    type Query {
+        hello: String!
+        name: String!
+        bio: String!
+        location: String!
+    }
+`
 
-//Math.js
-console.log(`Wynik dodawania to: ${addToNumbers(34, 43)}`);
-console.log(`Wynik odemowania to: ${substract(34, 43)}`);
+// Resolvers
+const resolvers = {
+    Query: {
+        hello() {
+            return 'This is my first query!'
+        },
+        name() {
+            return 'Andrew Mead'
+        },
+        bio() {
+            const Bio = 'I live in Atlanta'
 
+            return Bio;
+        },
+        location() {
+            return 'Atlanta'
+        }
+    }
+}
+
+const server = new GraphQLServer ({
+    typeDefs,
+    resolvers
+})
+
+server.start(() => {
+    console.log('This server is up')
+})
