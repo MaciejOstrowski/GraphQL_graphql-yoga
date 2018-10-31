@@ -17,6 +17,8 @@ const typeDefs = `
         product: Product!
         user: User!
         post: Post!
+        greeting(name: String, position: String!): String!
+        add(number1: Float!, number2: Float!): Float!
     }
 
     type Product {
@@ -90,6 +92,21 @@ const resolvers = {
                 title: 'Random Post',
                 body: '',
                 published: false
+            }
+        },
+        greeting(parent, args, ctx, info) {
+            console.log(args.name)
+            if(args.name && args.position){
+                return `Hello ${args.name}! You are my favourite ${args.position}`
+            } else {
+                return `Hello!`
+            }
+        },
+        add(parent, args){
+            if(args.number1 && args.number2){
+                return args.number1 + args.number2
+            } else {
+                return 'Provide all arguments'
             }
         }
     }
