@@ -14,11 +14,31 @@ const typeDefs = `
         average: Float!
         location: String!
         bio: String!
+        product: Product!
+        user: User!
+        post: Post!
+    }
+
+    type Product {
         title: String!
         price: Float!
         releaseYear: Int!
         rating: Float!
         inStock: Boolean!
+    }
+
+    type User {
+        id: ID!
+        name: String!
+        email: String!
+        age: Int
+    }
+
+    type Post {
+        id: ID!
+        title: String!
+        body: String!
+        published: Boolean!
     }
 `
 
@@ -47,20 +67,30 @@ const resolvers = {
         bio() {
             return 'I live in Atlanta';
         },
-        title() {
-            return 'My Title'
+        product() {
+            return {
+                title: 'Lord of The Rings',
+                price: 4.77,
+                releaseYear: 345,
+                rating: 4.33,
+                inStock: true
+            }
         },
-        price() {
-            return 4.98
+        user() {
+            return {
+                id: '12345',
+                name: 'Adam',
+                email: 'adam@example.com',
+                age: 28
+            }
         },
-        releaseYear() {
-            return 598
-        },
-        rating() {
-            return 4.02
-        },
-        inStock() {
-            return true
+        post(){
+            return {
+                id: 54321,
+                title: 'Random Post',
+                body: '',
+                published: false
+            }
         }
     }
 }
