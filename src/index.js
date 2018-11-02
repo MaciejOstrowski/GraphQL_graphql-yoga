@@ -4,22 +4,88 @@ import {
 
 // Scalar Types: String, Int, Float, ID, Boolean
 
+// Array of users
+const users = [
+    {
+        id: 1,
+        name: 'Steven',
+        email: 'Kowalsky@email.com',
+        age: 21
+    },
+    {
+        id: 2,
+        name: 'John',
+        email: 'Snow@email.com',
+    },
+    {
+        id: 3,
+        name: 'Rick',
+        email: 'Grimes@email.com',
+        age: 23
+    },
+    {
+        id: 4,
+        name: 'Eugene',
+        email: 'Kowalsky4@email.com',
+    },
+    {
+        id: 5,
+        name: 'Steven',
+        email: 'Kowalsky5@email.com',
+        age: 25
+    },
+]
+
+const posts = [
+    {
+        id: 1,
+        title: 'Lord Of The Rings',
+        body: 'Tratatatatttttttttttttaaa',
+        published: true
+    },
+    {
+        id: 2,
+        title: 'Fast and Fury',
+        body: 'Tratatatatttttttttttttaaa',
+        published: true
+    },
+    {
+        id: 3,
+        title: 'Intouchables',
+        body: 'Tratatatatttttttttttttaaa',
+        published: true
+    },
+    {
+        id: 4,
+        title: 'Inception',
+        body: 'Tratatatatttttttttttttaaa',
+        published: true
+    },
+    {
+        id: 5,
+        title: 'Predator',
+        body: 'Tratatatatttttttttttttaaa',
+        published: false
+    },
+    {
+        id: 6,
+        title: 'The Alien',
+        body: 'Tratatatatttttttttttttaaa',
+        published: false
+    },
+]
+
 // Type definitions (schema)
 const typeDefs = `
     type Query {
-        id: ID!
-        name: String!
-        age: Int!
-        employed: Boolean!
-        average: Float!
-        location: String!
-        bio: String!
         product: Product!
-        user: User!
-        post: Post!
+        users(query: String): [User!]!
+        posts(query: String): [Post!]!
         greeting(name: String, position: String!): String!
         add(number1: Float!, number2: Float!): Float!
         substract(number1: Float!, number2: Float!): Float!
+        grades(grades: Int!): [Int!]!
+        addGrades(grades: [Int!]!): Int!
     }
 
     type Product {
@@ -49,27 +115,6 @@ const typeDefs = `
 // Resolvers
 const resolvers = {
     Query: {
-        id() {
-            return 'abc123'
-        },
-        name() {
-            return 'Andrew'
-        },
-        age() {
-            return 27
-        },
-        employed() {
-            return true
-        },
-        average() {
-            return 3.87
-        },
-        location() {
-            return 'Atlanta'
-        },
-        bio() {
-            return 'I live in Atlanta';
-        },
         product() {
             return {
                 title: 'Lord of The Rings',
@@ -79,24 +124,26 @@ const resolvers = {
                 inStock: true
             }
         },
-        user() {
-            return {
-                id: '12345',
-                name: 'Adam',
-                email: 'adam@example.com',
-                age: 28
-            }
+        users(parent, args, ctx) {
+            if(!args.query){
+                return users
+            } 
+                return users.filter((user) => {
+                    return user.name.toLowerCase().includes(args.query.toLowerCase())
+                })
+            
         },
-        post(){
-            return {
-                id: 54321,
-                title: 'Random Post',
-                body: '',
-                published: false
+        posts(parent, args){
+            if(!args.query){
+                return posts
             }
+            return posts.filter((post) => {
+                const isTitleMatch = post.title.toLowerCase().includes(args.query.toLowerCase())
+                const isBodyMatch = post.title.toLowerCase().includes(args.query.toLowerCase())
+                return isTitleMatch || isBodyMatch
+            })
         },
         greeting(parent, args, ctx, info) {
-            console.log(args.name)
             if(args.name && args.position){
                 return `Hello ${args.name}! You are my favourite ${args.position}`
             } else {
@@ -115,6 +162,23 @@ const resolvers = {
                 return args.number1 - args.number2
             } else {
                 return 'Provide all arguments'
+            }
+        },
+        grades(parent, args){
+            const grades = []
+            for(var i=0; i<= args.grades; i++){
+                grades.push(i);
+            }
+            return grades
+        },
+        addGrades(parent, args){
+            if(args.grades.length === 0){
+                return 0
+            }
+            else {
+                return args.grades.reduce((previousValue, currentValue)=>{
+                    return previousValue + currentValue
+                })
             }
         }
     }
