@@ -19,6 +19,7 @@ const typeDefs = `
         post: Post!
         greeting(name: String, position: String!): String!
         add(number1: Float!, number2: Float!): Float!
+        substract(number1: Float!, number2: Float!): Float!
     }
 
     type Product {
@@ -105,6 +106,13 @@ const resolvers = {
         add(parent, args){
             if(args.number1 && args.number2){
                 return args.number1 + args.number2
+            } else {
+                return 'Provide all arguments'
+            }
+        },
+        substract(parent, args){
+            if(args.number1 && args.number2){
+                return args.number1 - args.number2
             } else {
                 return 'Provide all arguments'
             }
