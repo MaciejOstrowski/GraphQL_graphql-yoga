@@ -41,59 +41,51 @@ const posts = [
         id: 1,
         title: 'Lord Of The Rings',
         body: 'Tratatatatttttttttttttaaa',
-        published: true
+        published: true,
+        author: 1
     },
     {
         id: 2,
         title: 'Fast and Fury',
         body: 'Tratatatatttttttttttttaaa',
-        published: true
+        published: true,
+        author: 2
     },
     {
         id: 3,
         title: 'Intouchables',
         body: 'Tratatatatttttttttttttaaa',
-        published: true
+        published: true,
+        author: 2
     },
     {
         id: 4,
         title: 'Inception',
         body: 'Tratatatatttttttttttttaaa',
-        published: true
+        published: true,
+        author: 4
     },
     {
         id: 5,
         title: 'Predator',
         body: 'Tratatatatttttttttttttaaa',
-        published: false
+        published: false,
+        author: 3
     },
     {
         id: 6,
         title: 'The Alien',
         body: 'Tratatatatttttttttttttaaa',
-        published: false
+        published: false,
+        author: 1
     },
 ]
 
 // Type definitions (schema)
 const typeDefs = `
     type Query {
-        product: Product!
         users(query: String): [User!]!
         posts(query: String): [Post!]!
-        greeting(name: String, position: String!): String!
-        add(number1: Float!, number2: Float!): Float!
-        substract(number1: Float!, number2: Float!): Float!
-        grades(grades: Int!): [Int!]!
-        addGrades(grades: [Int!]!): Int!
-    }
-
-    type Product {
-        title: String!
-        price: Float!
-        releaseYear: Int!
-        rating: Float!
-        inStock: Boolean!
     }
 
     type User {
@@ -101,6 +93,7 @@ const typeDefs = `
         name: String!
         email: String!
         age: Int
+        posts: [Post!]!
     }
 
     type Post {
@@ -108,6 +101,7 @@ const typeDefs = `
         title: String!
         body: String!
         published: Boolean!
+        author: User!
     }
 `
 
@@ -115,15 +109,6 @@ const typeDefs = `
 // Resolvers
 const resolvers = {
     Query: {
-        product() {
-            return {
-                title: 'Lord of The Rings',
-                price: 4.77,
-                releaseYear: 345,
-                rating: 4.33,
-                inStock: true
-            }
-        },
         users(parent, args, ctx) {
             if(!args.query){
                 return users
@@ -142,44 +127,20 @@ const resolvers = {
                 const isBodyMatch = post.title.toLowerCase().includes(args.query.toLowerCase())
                 return isTitleMatch || isBodyMatch
             })
-        },
-        greeting(parent, args, ctx, info) {
-            if(args.name && args.position){
-                return `Hello ${args.name}! You are my favourite ${args.position}`
-            } else {
-                return `Hello!`
-            }
-        },
-        add(parent, args){
-            if(args.number1 && args.number2){
-                return args.number1 + args.number2
-            } else {
-                return 'Provide all arguments'
-            }
-        },
-        substract(parent, args){
-            if(args.number1 && args.number2){
-                return args.number1 - args.number2
-            } else {
-                return 'Provide all arguments'
-            }
-        },
-        grades(parent, args){
-            const grades = []
-            for(var i=0; i<= args.grades; i++){
-                grades.push(i);
-            }
-            return grades
-        },
-        addGrades(parent, args){
-            if(args.grades.length === 0){
-                return 0
-            }
-            else {
-                return args.grades.reduce((previousValue, currentValue)=>{
-                    return previousValue + currentValue
-                })
-            }
+        }
+    },
+    Post: {
+        author(parent, args, ctx, info) {
+            return users.find( (user) => {
+                return user.id === parent.author
+            })
+        }
+    },
+    User: {
+        posts(parent, arg, ctx, info) {
+            return posts.filter( (post) => {
+                return post.author === parent.id
+            })
         }
     }
 }
