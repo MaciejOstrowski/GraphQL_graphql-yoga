@@ -1,33 +1,34 @@
 import { GraphQLServer } from 'graphql-yoga'
+import uuidv4 from 'uuid/v4'
 
 // Scalar Types: String, Int, Float, ID, Boolean
 
 // Array of users
 const users = [
     {
-        id: 1,
+        id: "1",
         name: 'Steven',
         email: 'Kowalsky@email.com',
         age: 21
     },
     {
-        id: 2,
+        id: "2",
         name: 'John',
         email: 'Snow@email.com',
     },
     {
-        id: 3,
+        id: "3",
         name: 'Rick',
         email: 'Grimes@email.com',
         age: 23
     },
     {
-        id: 4,
+        id: "4",
         name: 'Eugene',
         email: 'Kowalsky4@email.com',
     },
     {
-        id: 5,
+        id: "5",
         name: 'Steven',
         email: 'Kowalsky5@email.com',
         age: 25
@@ -36,7 +37,7 @@ const users = [
 
 const posts = [
     {
-        id: 11,
+        id: "11",
         title: 'Lord Of The Rings',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
@@ -44,35 +45,35 @@ const posts = [
         
     },
     {
-        id: 12,
+        id: "12",
         title: 'Fast and Fury',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
         author: 2
     },
     {
-        id: 13,
+        id: "13",
         title: 'Intouchables',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
         author: 2
     },
     {
-        id: 14,
+        id: "14",
         title: 'Inception',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
         author: 4
     },
     {
-        id: 15,
+        id: "15",
         title: 'Predator',
         body: 'Tratatatatttttttttttttaaa',
         published: false,
         author: 3
     },
     {
-        id: 16,
+        id: "16",
         title: 'The Alien',
         body: 'Tratatatatttttttttttttaaa',
         published: false,
@@ -114,6 +115,12 @@ const typeDefs = `
         users(query: String): [User!]!
         posts(query: String): [Post!]!
         comments: [Comment!]!
+    }
+
+    type Mutation {
+        createUSer(name: String!, email: String!, age: Int): User!
+        createPost(title: String!, body: String!, published: Boolean!, author: ID!): Post!
+        createComment(text: String!, author: ID!, post: ID!): Comment!
     }
 
     type User {
@@ -169,6 +176,60 @@ const resolvers = {
             if(!args.query) {
                 return comments
             }
+        }
+    },
+    Mutation: {
+        createUSer(parent, args, ctx, info) {
+            const emailTaken = users.some((user) => user.email === args.email)
+
+            if(emailTaken){
+                throw new Error('Email Taken.')
+            }
+
+            const user = {
+                id: uuidv4(),
+                name: args.name,
+                email: args.email,
+                age: args.age
+            }
+
+            users.push(user)
+
+            return user
+        },
+        createPost(parent, args, ctx, info) {
+            const userExists = users.some((user) => user.id === args.author)
+
+            if(!userExists) {
+                throw new Error('User Not Found')
+            }
+
+            const post = {
+                id: uuidv4(),
+                title: args.title,
+                body: args.body,
+                published: args.published,
+                author: args.author
+            }
+
+            posts.push(post)
+            return post
+        },
+        createComment(parent, args, ctx, info) {
+            const userExist = users.some((user) => user.id === args.author)
+            const postExist = posts.some((post) => post.id === args.post && post.published === true)
+
+            if(!userExist || !postExist) throw new Error('User Not Found')
+
+            const comment = {
+                id: uuidv4(),
+                text: args.text,
+                author: args.author,
+                post: args.post
+            }
+
+            comments.push(comment)
+            return comment
         }
     },
     Post: {
