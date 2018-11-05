@@ -118,6 +118,7 @@ const resolvers = {
                 })
             
         },
+        //one, two, three
         posts(parent, args){
             if(!args.query){
                 return posts
