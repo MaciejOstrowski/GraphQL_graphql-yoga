@@ -1,6 +1,4 @@
-import {
-    GraphQLServer
-} from 'graphql-yoga'
+import { GraphQLServer } from 'graphql-yoga'
 
 // Scalar Types: String, Int, Float, ID, Boolean
 
@@ -38,42 +36,43 @@ const users = [
 
 const posts = [
     {
-        id: 1,
+        id: 11,
         title: 'Lord Of The Rings',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
-        author: 1
+        author: 1,
+        
     },
     {
-        id: 2,
+        id: 12,
         title: 'Fast and Fury',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
         author: 2
     },
     {
-        id: 3,
+        id: 13,
         title: 'Intouchables',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
         author: 2
     },
     {
-        id: 4,
+        id: 14,
         title: 'Inception',
         body: 'Tratatatatttttttttttttaaa',
         published: true,
         author: 4
     },
     {
-        id: 5,
+        id: 15,
         title: 'Predator',
         body: 'Tratatatatttttttttttttaaa',
         published: false,
         author: 3
     },
     {
-        id: 6,
+        id: 16,
         title: 'The Alien',
         body: 'Tratatatatttttttttttttaaa',
         published: false,
@@ -81,11 +80,40 @@ const posts = [
     },
 ]
 
+const comments = [
+    {
+        id: 101,
+        text: 'Duis ultricies luctus orci, non tincidunt lacus posuere sit amet.',
+        author: 1,
+        post: 12
+    },
+    {
+        id: 102,
+        text: 'Pellentesque at neque urna. Nunc interdum pulvinar odio, ut fermentum.',
+        author: 2,
+        post: 13
+    },
+    {
+        id: 103,
+        text: 'Vestibulum bibendum auctor turpis, ac faucibus metus consectetur non. Vestibulum.',
+        author: 3,
+        post: 14
+    },
+    {
+        id: 104,
+        text: 'Donec imperdiet sagittis purus sit amet luctus. Fusce molestie est.',
+        author: 4,
+        post: 15
+    },
+
+]
+
 // Type definitions (schema)
 const typeDefs = `
     type Query {
         users(query: String): [User!]!
         posts(query: String): [Post!]!
+        comments: [Comment!]!
     }
 
     type User {
@@ -94,6 +122,7 @@ const typeDefs = `
         email: String!
         age: Int
         posts: [Post!]!
+        comments: [Comment!]!
     }
 
     type Post {
@@ -102,6 +131,14 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
+        comments: [Comment!]!
+    }
+
+    type Comment {
+        id: ID!
+        text: String!
+        author: User!
+        post: Post!
     }
 `
 
@@ -118,9 +155,8 @@ const resolvers = {
                 })
             
         },
-        //one, two, three
-        posts(parent, args){
-            if(!args.query){
+        posts(parent, args) {
+            if(!args.query) {
                 return posts
             }
             return posts.filter((post) => {
@@ -128,19 +164,46 @@ const resolvers = {
                 const isBodyMatch = post.title.toLowerCase().includes(args.query.toLowerCase())
                 return isTitleMatch || isBodyMatch
             })
+        },
+        comments(parent, args) {
+            if(!args.query) {
+                return comments
+            }
         }
     },
     Post: {
         author(parent, args, ctx, info) {
-            return users.find( (user) => {
+            return users.find((user) => {
                 return user.id === parent.author
+            })
+        },
+        comments(parent, args, ctx, info) {
+            return comments.filter((comment) => {
+                return comment.post === parent.id
             })
         }
     },
     User: {
         posts(parent, arg, ctx, info) {
-            return posts.filter( (post) => {
+            return posts.filter((post) => {
                 return post.author === parent.id
+            })
+        },
+        comments(parent, arg, ctx, info) {
+            return comments.filter((comment) => {
+                return comment.author === parent.id
+            })
+        }
+    },
+    Comment: {
+        author(parent, args, ctx, info){
+            return users.find((user) => {
+                return user.id === parent.author
+            })
+        },
+        post(parent, args, ctx, info){
+            return posts.find((post) => {
+                return post.id === parent.post
             })
         }
     }
