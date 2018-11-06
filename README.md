@@ -21,8 +21,8 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 		2. [ Delete Post ](#delete_comment)
 ---------------------------------------------------------------------
 
-
-## TO START:  <a name="to_start"></a>
+<a name="to_start"></a>
+## TO START:
 
 ```
 1. git clone https://github.com/MaciejOstrowski/GraphQL_graphql-yoga.git
@@ -39,10 +39,15 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 If you have any problem with configuration - take a look at this Udemy-course: [GraphQL-Bootcamp](https://www.udemy.com/graphql-bootcamp/)
 
 
-## Example queries/mutations: <a name="example_queries_mutations"></a>
+<a name="example_queries_mutations"></a>
+## Example queries/mutations:
 
-###### Query <a name="query"></a>
->Display array of users and their posts/comments <a name="display_users"></a>
+
+<a name="query"></a>
+###### Query
+
+<a name="display_users"></a>
+>Display array of users and their posts/comments
 ```graphql
 query{
   users{
@@ -65,7 +70,9 @@ query{
   }
 }
 ```
->Display array of all posts in data <a name="display_posts"></a>
+
+<a name="display_posts"></a>
+>Display array of all posts in data
 ```graphql
 query{
   posts{
@@ -74,9 +81,12 @@ query{
   }
 }
 ```
-###### Mutation <a name="mutation"></a>
 
->Create User Mutation <a name="create_user"></a>
+<a name="mutation"></a>
+###### Mutation
+
+<a name="create_user"></a>
+>Create User Mutation
 ```graphql
 mutation {
   createUser(data: {          #Provide data you want sent
@@ -92,7 +102,8 @@ mutation {
 }
 ```
 
->Create Post Mutation <a name="create_post"></a>
+<a name="create_post"></a>
+>Create Post Mutation
 ```graphql
 mutation{
   createPost(
@@ -114,7 +125,8 @@ mutation{
 }
 ```
 
->Create Comment Mutation <a name="create_comment"></a>
+<a name="create_comment"></a>
+>Create Comment Mutation
 ```graphql
 mutation {
   createComment(data: {
@@ -132,7 +144,8 @@ mutation {
 }
 ```
 
->Delete User Mutation <a name="delete_user"></a>
+<a name="delete_user"></a>
+>Delete User Mutation
 ```graphql
 mutation{
   deleteUser(id: 1){
@@ -144,7 +157,8 @@ mutation{
 }
 ```
 
->Delete Post Mutation <a name="delete_post"></a>
+<a name="delete_post"></a>
+>Delete Post Mutation
 ```graphql
 mutation {
 	deletePost(id: "25a085ba-2a4e-4c4f-aac5-7ca9affa9a19"){   #Provide correct post.id you want to delete
@@ -158,7 +172,8 @@ mutation {
 }
 ```
 
->Delete Comment Mutation <a name="delete_comment"></a>
+<a name="delete_comment"></a>
+>Delete Comment Mutation
 ```graphql
 mutation {
    deleteComment(id: "20532a81-7f16-4a3e-af4a-76045b8bd268"){    #Provide correct comment.id you want to delete
