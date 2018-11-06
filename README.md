@@ -27,13 +27,15 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 ```
 1. git clone https://github.com/MaciejOstrowski/GraphQL_graphql-yoga.git
 
-2. git checkout develop
+2. cd GraphQL_graphql-yoga
 
-3. npm install
+3. git checkout develop
 
-4. npm run start
+4. npm install
 
-5. At your browser run http://localhost:4000/
+5. npm run start
+
+6. At your browser run http://localhost:4000/
 ```
 
 If you have any problem with configuration - take a look at this Udemy-course: [GraphQL-Bootcamp](https://www.udemy.com/graphql-bootcamp/)
