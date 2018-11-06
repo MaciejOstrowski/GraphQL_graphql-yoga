@@ -7,12 +7,12 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 
 ---------------------------------------------------------------------
 ## Table of contents
-1. [ TO START ](#TO_START)
-2. [ Example Queries/Mutations ](#Example_queries/mutations)
-	1. [ Query ](#Query)
+1. [ TO START ](#to_start)
+2. [ Example Queries/Mutations ](#example_queries_mutations)
+	1. [ Query ](#query)
 		1. [ Display Users ](#display_users)
 		2. [ Display Posts ](#display_posts)
-	2. [ Mutations ](#Mutation)
+	2. [ Mutations ](#mutation)
 		1. [ Create User ](#create_user)
 		2. [ Create Post ](#create_post)
 		1. [ Create Comment ](#create_comment)
@@ -22,7 +22,7 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 ---------------------------------------------------------------------
 
 
-## TO START:  <a name="TO_START"></a>
+## TO START:  <a name="to_start"></a>
 
 ```
 1. git clone https://github.com/MaciejOstrowski/GraphQL_graphql-yoga.git
@@ -39,9 +39,9 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 If you have any problem with configuration - take a look at this Udemy-course: [GraphQL-Bootcamp](https://www.udemy.com/graphql-bootcamp/)
 
 
-## Example queries/mutations: <a name="Example_queries/mutations"></a>
+## Example queries/mutations: <a name="example_queries_mutations"></a>
 
-###### Query <a name="Query"></a>
+###### Query <a name="query"></a>
 >Display array of users and their posts/comments <a name="display_users"></a>
 ```graphql
 query{
@@ -74,7 +74,7 @@ query{
   }
 }
 ```
-###### Mutation <a name="Mutation"></a>
+###### Mutation <a name="mutation"></a>
 
 >Create User Mutation <a name="create_user"></a>
 ```graphql
