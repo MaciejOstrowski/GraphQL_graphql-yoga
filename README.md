@@ -15,10 +15,10 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 	2. [ Mutations ](#mutation)
 		1. [ Create User ](#create_user)
 		2. [ Create Post ](#create_post)
-		1. [ Create Comment ](#create_comment)
-		2. [ Delete User ](#delete_user)
-		1. [ Delete Post ](#delete_post)
-		2. [ Delete Comment ](#delete_comment)
+		3. [ Create Comment ](#create_comment)
+		4. [ Delete User ](#delete_user)
+		5. [ Delete Post ](#delete_post)
+		6. [ Delete Comment ](#delete_comment)
 ---------------------------------------------------------------------
 
 <a name="to_start"></a>
