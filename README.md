@@ -13,12 +13,12 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 		1. [ Display Users ](#display_users)
 		2. [ Display Posts ](#display_posts)
 	2. [ Mutations ](#Mutation)
-		1. [ Creare User ](#create_user)
+		1. [ Create User ](#create_user)
 		2. [ Create Post ](#create_post)
-		1. [ Creare Comment ](#create_comment)
+		1. [ Create Comment ](#create_comment)
 		2. [ Delete User ](#delete_user)
-		1. [ Creare User ](#delete_post)
-		2. [ Create Post ](#delete_comment)
+		1. [ Delete User ](#delete_post)
+		2. [ Delete Post ](#delete_comment)
 ---------------------------------------------------------------------
 
 
@@ -65,7 +65,7 @@ query{
   }
 }
 ```
->Display array of all post in data <a name="display_posts"></a>
+>Display array of all posts in data <a name="display_posts"></a>
 ```graphql
 query{
   posts{
