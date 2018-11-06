@@ -5,10 +5,24 @@ Configured GraphQL environment with Graphlql-yoga interface to training queries.
 You can training GraphQL queries on localhost and other stuff. 
 I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-bootcamp/) code, to learn GraphQL.
 
-
+---------------------------------------------------------------------
+## Table of contents
+1. [ TO START ](#TO_START)
+2. [ Example Queries/Mutations ](#Example_queries/mutations)
+	1. [ Query ](#Query)
+		1. [ Display Users ](#display_users)
+		2. [ Display Posts ](#display_posts)
+	2. [ Mutations ](#Mutation)
+		1. [ Creare User ](#create_user)
+		2. [ Create Post ](#create_post)
+		1. [ Creare Comment ](#create_comment)
+		2. [ Delete User ](#delete_user)
+		1. [ Creare User ](#delete_post)
+		2. [ Create Post ](#delete_comment)
 ---------------------------------------------------------------------
 
-## TO START:
+
+## TO START:  <a name="TO_START"></a>
 
 ```
 1. git clone https://github.com/MaciejOstrowski/GraphQL_graphql-yoga.git
@@ -25,10 +39,10 @@ I used this Udemy E-learning  [GraphQL-Bootcamp](https://www.udemy.com/graphql-b
 If you have any problem with configuration - take a look at this Udemy-course: [GraphQL-Bootcamp](https://www.udemy.com/graphql-bootcamp/)
 
 
-## Example queries/mutations:
+## Example queries/mutations: <a name="Example_queries/mutations"></a>
 
-###### Query
->Display array of users and their posts/comments
+###### Query <a name="Query"></a>
+>Display array of users and their posts/comments <a name="display_users"></a>
 ```graphql
 query{
   users{
@@ -51,7 +65,7 @@ query{
   }
 }
 ```
->Display array of all post in data
+>Display array of all post in data <a name="display_posts"></a>
 ```graphql
 query{
   posts{
@@ -60,9 +74,9 @@ query{
   }
 }
 ```
-###### Mutation
+###### Mutation <a name="Mutation"></a>
 
->Create User Mutation
+>Create User Mutation <a name="create_user"></a>
 ```graphql
 mutation {
   createUser(data: {          #Provide data you want sent
@@ -78,7 +92,7 @@ mutation {
 }
 ```
 
->Create Post Mutation
+>Create Post Mutation <a name="create_post"></a>
 ```graphql
 mutation{
   createPost(
@@ -100,7 +114,7 @@ mutation{
 }
 ```
 
->Create Comment Mutation
+>Create Comment Mutation <a name="create_comment"></a>
 ```graphql
 mutation {
   createComment(data: {
@@ -118,7 +132,7 @@ mutation {
 }
 ```
 
->Delete User Mutation
+>Delete User Mutation <a name="delete_user"></a>
 ```graphql
 mutation{
   deleteUser(id: 1){
@@ -130,10 +144,10 @@ mutation{
 }
 ```
 
->Delete Post Mutation
+>Delete Post Mutation <a name="delete_post"></a>
 ```graphql
 mutation {
-	deletePost(id: "25a085ba-2a4e-4c4f-aac5-7ca9affa9a19"){       #Provide correct post.id you want to delete
+	deletePost(id: "25a085ba-2a4e-4c4f-aac5-7ca9affa9a19"){   #Provide correct post.id you want to delete
     id
     title
     body
@@ -144,10 +158,10 @@ mutation {
 }
 ```
 
->Delete Comment Mutation
+>Delete Comment Mutation <a name="delete_comment"></a>
 ```graphql
 mutation {
-   deleteComment(id: "20532a81-7f16-4a3e-af4a-76045b8bd268"){     #Provide correct comment.id you want to delete
+   deleteComment(id: "20532a81-7f16-4a3e-af4a-76045b8bd268"){    #Provide correct comment.id you want to delete
     id
     text
     author{
@@ -157,5 +171,6 @@ mutation {
 }
 ```
 
+----------------------------------------------------------------------------------------------------------------------------------
 
 <b>Who can maintains and contributes to the project?</b>  Everyone :)
